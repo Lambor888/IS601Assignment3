@@ -1,25 +1,43 @@
+import pytest
 from app.operations import addition, subtraction, multiplication, division
 
-def test_addition():
-    assert addition(2, 3) == 5
-    assert addition(-1, 1) == 0
-    assert addition(0, 0) == 0
 
-def test_subtraction():
-    assert subtraction(5, 3) == 2
-    assert subtraction(0, 0) == 0
-    assert subtraction(-1, -1) == 0
+@pytest.mark.parametrize("a, b, expected", [
+    (2, 3, 5),
+    (-1, 1, 0),
+    (0, 0, 0),
+])
+def test_addition(a, b, expected):
+    assert addition(a, b) == expected
 
-def test_multiplication():
-    assert multiplication(2, 3) == 6
-    assert multiplication(-1, 1) == -1
-    assert multiplication(0, 5) == 0
 
-def test_division():
-    assert division(6, 3) == 2
-    assert division(-6, 2) == -3
-    try:
+@pytest.mark.parametrize("a, b, expected", [
+    (5, 3, 2),
+    (0, 0, 0),
+    (-1, -1, 0),
+])
+def test_subtraction(a, b, expected):
+    assert subtraction(a, b) == expected
+
+
+@pytest.mark.parametrize("a, b, expected", [
+    (2, 3, 6),
+    (-1, 1, -1),
+    (0, 5, 0),
+])
+def test_multiplication(a, b, expected):
+    assert multiplication(a, b) == expected
+
+
+@pytest.mark.parametrize("a, b, expected", [
+    (6, 3, 2),
+    (-6, 2, -3),
+    (0, 5, 0),
+])
+def test_division(a, b, expected):
+    assert division(a, b) == expected
+
+
+def test_division_by_zero():
+    with pytest.raises(ValueError, match="Cannot divide by zero"):
         division(5, 0)
-        assert False, "Expected ValueError for division by zero"
-    except ValueError as e:
-        assert str(e) == "Cannot divide by zero"
