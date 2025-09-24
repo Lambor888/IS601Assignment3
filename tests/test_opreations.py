@@ -1,5 +1,5 @@
 import pytest
-from app.operations import addition, subtraction, multiplication, division
+from app.operations import Operations
 
 
 @pytest.mark.parametrize("a, b, expected", [
@@ -8,7 +8,7 @@ from app.operations import addition, subtraction, multiplication, division
     (0, 0, 0),
 ])
 def test_addition(a, b, expected):
-    assert addition(a, b) == expected
+    assert Operations.addition(a, b) == expected
 
 
 @pytest.mark.parametrize("a, b, expected", [
@@ -17,7 +17,7 @@ def test_addition(a, b, expected):
     (-1, -1, 0),
 ])
 def test_subtraction(a, b, expected):
-    assert subtraction(a, b) == expected
+    assert Operations.subtraction(a, b) == expected
 
 
 @pytest.mark.parametrize("a, b, expected", [
@@ -26,7 +26,7 @@ def test_subtraction(a, b, expected):
     (0, 5, 0),
 ])
 def test_multiplication(a, b, expected):
-    assert multiplication(a, b) == expected
+    assert Operations.multiplication(a, b) == expected
 
 
 @pytest.mark.parametrize("a, b, expected", [
@@ -35,9 +35,9 @@ def test_multiplication(a, b, expected):
     (0, 5, 0),
 ])
 def test_division(a, b, expected):
-    assert division(a, b) == expected
+    assert Operations.division(a, b) == expected 
 
 
 def test_division_by_zero():
     with pytest.raises(ValueError, match="Cannot divide by zero"):
-        division(5, 0)
+        Operations.division(5, 0)
